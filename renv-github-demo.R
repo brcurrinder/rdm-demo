@@ -65,8 +65,8 @@ print(summary_data)
 
 # During your edits to a script, let's say you add a package to it: 
 
-ggplot2::ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+ggplot2::ggplot(data = penguins) + 
+  ggplot2::geom_point(mapping = ggplot2::aes(x = bill_len, y = body_mass))
 
 # Run renv::install("ggplot2") in the console
 
