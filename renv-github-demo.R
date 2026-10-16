@@ -63,7 +63,12 @@ print(summary_data)
 # 3. ADDING PACKAGES AND RECORDING THE ENVIRONMENT ----
 # ============================================================================== #
 
-# During your edits to a script, you add a package to it: renv::install("ggplot2")
+# During your edits to a script, let's say you add a package to it: 
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+
+# Run renv::install("ggplot2") in the console
 
 # After adding packages, run:
 # renv::snapshot()
