@@ -18,16 +18,23 @@
 # Run renv::init just once in the console when first setting up the project
 
 # ============================================================================== #
-# 2. ADDING PACKAGES AND RECORDING THE ENVIRONMENT ----
+# 2. WHAT A COLLABORATOR DOES AFTER CLONING / PULLING ----
 # ============================================================================== #
 
-# Add a package to the project:
-# renv::install("dplyr")
+# A collaborator:
+#   1. Clones or pulls the repository from GitHub
+#   2. Opens the .Rproj file
+#   3. Restores the package environment from renv.lock with renv::restore()
 
-# After intentionally adding, removing, or changing package dependencies:
-# renv::snapshot()
+# Optional check in the console before running renv::restore():
+# renv::status()
 
-# renv::snapshot() records the current package versions in renv.lock
+# restore() reads renv.lock and installs the recorded package versions
+# into the collaborator's local project library.
+
+# After restoring, restart R and run the analysis.
+# If this file is saved as R/analysis.R:
+# source("R/analysis.R")
 
 
 # ============================================================================== #
@@ -52,50 +59,23 @@ summary_data <- data |>
 
 print(summary_data)
 
-
 # ============================================================================== #
-# 4. WHAT A COLLABORATOR DOES AFTER CLONING / PULLING ----
-# ============================================================================== #
-
-# A collaborator:
-#   1. Clones or pulls the repository from GitHub
-#   2. Opens the .Rproj file
-#   3. Restores the package environment from renv.lock with renv::restore()
-
-# Optional check in the console before running renv::restore():
-# renv::status()
-
-# restore() reads renv.lock and installs the recorded package versions
-# into the collaborator's local project library.
-
-# After restoring, restart R and run the analysis.
-# If this file is saved as R/analysis.R:
-# source("R/analysis.R")
-
-
-# ============================================================================== #
-# 5. WHEN SOMEONE ADDS A NEW PACKAGE
+# 3. ADDING PACKAGES AND RECORDING THE ENVIRONMENT ----
 # ============================================================================== #
 
-# Example:
-# renv::install("janitor")
+# During your edits to a script, you add a package to it: renv::install("ggplot2")
 
-# After confirming the project still works:
+# After adding packages, run:
 # renv::snapshot()
 
-# Commit both:
-#   - the code changes
-#   - the updated renv.lock file
-#
-# Other collaborators then pull from GitHub and run:
-# renv::restore()
+# renv::snapshot() records the current package versions in renv.lock
 
-# Do not use renv::snapshot() if restore() failed
-# snapshot() changes the shared environment.
+# You can then check that they've been recorded to renv.lock by looking directly
+# in the lockfile or by running renv::status()
 
 
 # ============================================================================== #
-# 6. TROUBLESHOOTING A FAILED renv::restore() ----
+# 4. TROUBLESHOOTING A FAILED renv::restore() ----
 # ============================================================================== #
 
 # renv reproduces R package versions, but it does not fully reproduce:
@@ -111,14 +91,14 @@ print(summary_data)
 #   1. Check the first package error
 #   2. Check the R version
 #   3. Check for package/system dependency problems
-#   4. Do NOT immediately run renv::snapshot()
+#   4. Don't immediately run renv::snapshot() (this will change the lockfile)
 
 # Useful Console checks:
 # R.version.string -- shows your R version
 # renv::status() -- tells you about issues & inconsistencies in the project
 
 # ============================================================================== #
-# 7. FOUR COMMANDS TO REMEMBER ---- 
+# 5. FOUR COMMANDS TO REMEMBER ---- 
 # ============================================================================== #
 
 # Project creator - just once (this was likely already done by your group postdoc or TA)
