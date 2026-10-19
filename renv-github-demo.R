@@ -18,27 +18,7 @@
 # Run renv::init just once in the console when first setting up the project
 
 # ============================================================================== #
-# 2. WHAT A COLLABORATOR DOES AFTER CLONING / PULLING ----
-# ============================================================================== #
-
-# A collaborator:
-#   1. Clones or pulls the repository from GitHub
-#   2. Opens the .Rproj file
-#   3. Restores the package environment from renv.lock with renv::restore()
-
-# Optional check in the console before running renv::restore():
-# renv::status()
-
-# restore() reads renv.lock and installs the recorded package versions
-# into the collaborator's local project library.
-
-# After restoring, restart R and run the analysis.
-# If this file is saved as R/analysis.R:
-# source("R/analysis.R")
-
-
-# ============================================================================== #
-# 3. WHAT BELONGS IN YOUR SCRIPT ----
+# 2. WHAT BELONGS IN YOUR SCRIPT ----
 # ============================================================================== #
 
 # Notice that our script does not run renv::init(), renv::restore(),
@@ -60,27 +40,46 @@ summary_data <- data |>
 print(summary_data)
 
 # ============================================================================== #
-# 3. ADDING PACKAGES AND RECORDING THE ENVIRONMENT ----
+# 3. WHAT A COLLABORATOR DOES AFTER CLONING / PULLING ----
 # ============================================================================== #
 
-# During your edits to a script, let's say you add a package to it: 
+# A collaborator:
+#   1. Clones or pulls the repository from GitHub
+#   2. Opens the .Rproj file
+#   3. Restores the package environment from renv.lock with renv::restore()
 
-ggplot2::ggplot(data = penguins) + 
-  ggplot2::geom_point(mapping = ggplot2::aes(x = bill_len, y = body_mass))
 
-# Run renv::install("ggplot2") in the console
+
+
+
+
+# Optional check in the console before running renv::restore():
+# renv::status()
+
+# restore() reads renv.lock and installs the recorded package versions
+# into the collaborator's local project library.
+
+# After restoring, restart R and run the analysis.
+
+# ============================================================================== #
+# 4. ADDING PACKAGES AND RECORDING THE ENVIRONMENT ----
+# ============================================================================== #
+
+# During your edits to the script, let's say you want to incorporate a new package:
+# the `janitor` package used for data cleaning
+
+# Run renv::install("janitor") in the console
 
 # After adding packages, run:
 # renv::snapshot()
 
-# renv::snapshot() records the current package versions in renv.lock
+# renv::snapshot() records the package versions in renv.lock
 
 # You can then check that they've been recorded to renv.lock by looking directly
 # in the lockfile or by running renv::status()
 
-
 # ============================================================================== #
-# 4. TROUBLESHOOTING A FAILED renv::restore() ----
+# 5. TROUBLESHOOTING A FAILED renv::restore() ----
 # ============================================================================== #
 
 # renv reproduces R package versions, but it does not fully reproduce:
@@ -103,7 +102,7 @@ ggplot2::ggplot(data = penguins) +
 # renv::status() -- tells you about issues & inconsistencies in the project
 
 # ============================================================================== #
-# 5. FOUR COMMANDS TO REMEMBER ---- 
+# 6. Takeaways ---- 
 # ============================================================================== #
 
 # Project creator - just once (this was likely already done by your group postdoc or TA)
@@ -118,16 +117,5 @@ ggplot2::ggplot(data = penguins) +
 # Anyone -- check the current state:
 # renv::status()
 
-
-# ============================================================================== #
-# 8. RECOMMENDED TEAM WORKFLOW ----
-# ============================================================================== #
-
-# Project creator:
-# initialize -> work -> snapshot -> commit
-#
-# Collaborator:
-# pull/clone -> restore -> work
-#
-# Everyone:
-# only snapshot when intentionally changing the shared environment
+# Final note: only run renv functions at the project level in your console, and not 
+# as executable code in a cleaning / analysis script
