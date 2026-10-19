@@ -48,9 +48,11 @@ print(summary_data)
 #   2. Opens the .Rproj file
 #   3. Restores the package environment from renv.lock with renv::restore()
 
-
-
-
+---------------------------------------------------------------------------
+## New code and package added by collaborator:
+ggplot2::ggplot(data = penguins) + 
+  ggplot2::geom_point(mapping = ggplot2::aes(x = bill_len, y = body_mass))
+---------------------------------------------------------------------------
 
 
 # Optional check in the console before running renv::restore():
